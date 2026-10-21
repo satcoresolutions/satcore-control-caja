@@ -1,0 +1,409 @@
+
+# SATCORE SOLUTIONS ATTRIBUTION LICENSE
+
+## SCSAL 1.0
+
+**SatCore Solutions Attribution License — Version 1.0**
+
+Copyright © [2026] SatCore Solutions
+
+**SOFTWARE AND TECHNOLOGY CORE SOLUTIONS**
+
+Nombre comercial: **SatCore Solutions**
+
+---
+
+## 1. Definiciones
+
+Para efectos de esta licencia:
+
+### "Software"
+
+Significa el código fuente, archivos, documentación y demás materiales incluidos en el proyecto que indiquen expresamente estar sujetos a esta licencia.
+
+### "Proyecto original"
+
+Significa el repositorio o software distribuido originalmente por **SatCore Solutions** bajo esta licencia.
+
+### "Obra derivada"
+
+Significa cualquier proyecto, software, aplicación, modificación, adaptación, extensión o producto que incorpore una parte sustancial del Software original.
+
+### "Atribución"
+
+Significa el reconocimiento de **SatCore Solutions** como desarrollador y fuente original del proyecto.
+
+---
+
+# 2. Concesión de derechos
+
+SatCore Solutions concede a cualquier persona física o jurídica que obtenga una copia del Software los siguientes derechos:
+
+- utilizar el Software;
+- ejecutar el Software;
+- estudiar el código fuente;
+- copiar el Software;
+- modificar el Software;
+- adaptar el Software;
+- integrar el Software en otros proyectos;
+- crear obras derivadas;
+- distribuir copias;
+- distribuir versiones modificadas;
+- utilizar el Software con fines personales;
+- utilizar el Software con fines educativos;
+- utilizar el Software con fines comerciales.
+
+Estos derechos están sujetos al cumplimiento de las condiciones establecidas en esta licencia.
+
+---
+
+# 3. Atribución obligatoria
+
+La atribución a **SatCore Solutions** es una condición esencial de esta licencia.
+
+Toda copia, redistribución, modificación, integración u obra derivada que utilice una parte sustancial del Software deberá reconocer a **SatCore Solutions** como fuente original del proyecto.
+
+La atribución deberá ser razonablemente visible y adecuada al contexto de distribución.
+
+Como mínimo, deberá indicar:
+
+> Originalmente desarrollado por SatCore Solutions.
+
+Cuando sea técnicamente posible, deberá incluirse también el enlace al proyecto original:
+
+```text
+https://github.com/satcoresolutions/[REPOSITORIO]
+```
+
+y al perfil oficial:
+
+```text
+https://github.com/satcoresolutions
+```
+
+---
+
+# 4. Ejemplo de atribución
+
+Una atribución válida puede utilizar la siguiente estructura:
+
+```text
+Este proyecto está basado en [NOMBRE DEL PROYECTO],
+desarrollado originalmente por SatCore Solutions.
+
+Proyecto original:
+https://github.com/satcoresolutions/[REPOSITORIO]
+
+SatCore Solutions:
+https://github.com/satcoresolutions
+```
+
+La persona o entidad que cree una obra derivada puede utilizar una redacción equivalente siempre que el reconocimiento de SatCore Solutions como fuente original permanezca claro.
+
+---
+
+# 5. Copia y redistribución
+
+Está permitido copiar y redistribuir el Software, con o sin modificaciones.
+
+Las redistribuciones deberán:
+
+1. conservar esta licencia o una referencia clara a ella;
+2. conservar la información de copyright correspondiente;
+3. conservar la atribución a SatCore Solutions;
+4. indicar razonablemente cualquier modificación significativa cuando corresponda;
+5. cumplir las condiciones relativas a las marcas y propiedad intelectual establecidas en esta licencia.
+
+---
+
+# 6. Modificación
+
+Está permitido modificar el Software de cualquier manera.
+
+Las modificaciones pueden incluir:
+
+- cambios de código;
+- cambios de arquitectura;
+- nuevas funcionalidades;
+- eliminación de funcionalidades;
+- cambios de interfaz;
+- integración con otros sistemas;
+- adaptación a otros frameworks;
+- adaptación a otros lenguajes;
+- optimizaciones;
+- correcciones de errores.
+
+Una versión modificada puede utilizar una identidad o marca diferente, siempre que mantenga la atribución requerida por esta licencia y no utilice indebidamente las marcas de SatCore Solutions.
+
+---
+
+# 7. Obras derivadas
+
+Las obras derivadas pueden ser desarrolladas y distribuidas bajo una licencia diferente, siempre que se respeten las obligaciones de atribución establecidas en esta licencia respecto del código original.
+
+El creador de una obra derivada puede establecer términos adicionales para las partes que haya desarrollado por cuenta propia, siempre que dichos términos no eliminen ni oculten la atribución correspondiente al Software original.
+
+---
+
+# 8. Uso comercial
+
+El uso comercial está expresamente permitido.
+
+El Software puede:
+
+- incorporarse a productos comerciales;
+- utilizarse en servicios profesionales;
+- utilizarse en aplicaciones comerciales;
+- integrarse en sistemas empresariales;
+- utilizarse para prestar servicios;
+- modificarse para crear productos comerciales;
+- redistribuirse como parte de soluciones comerciales.
+
+El uso comercial del Software no implica asociación, patrocinio, certificación ni respaldo por parte de SatCore Solutions.
+
+---
+
+# 9. Prohibición de apropiación de autoría
+
+No está permitido presentar el Software original, o una parte sustancial del mismo, como si hubiera sido desarrollado originalmente por una persona o entidad diferente de SatCore Solutions.
+
+Está permitido crear obras derivadas y utilizar una marca propia para ellas.
+
+Sin embargo, la atribución histórica y técnica a SatCore Solutions deberá conservarse cuando corresponda conforme a esta licencia.
+
+---
+
+# 10. Integridad de la atribución
+
+No está permitido eliminar deliberadamente los avisos de copyright, autoría o atribución de SatCore Solutions con el propósito de ocultar el origen del Software.
+
+La ubicación y presentación de la atribución pueden adaptarse a la naturaleza del proyecto.
+
+Por ejemplo, puede aparecer en:
+
+- README;
+- documentación;
+- archivo NOTICE;
+- página de créditos;
+- sección "About";
+- documentación técnica;
+- información legal;
+- pantalla de información del software;
+- repositorio;
+- documentación del producto.
+
+La atribución deberá permanecer razonablemente accesible.
+
+---
+
+# 11. Marca SatCore Solutions
+
+Esta licencia no concede derechos sobre la marca **SatCore Solutions**.
+
+Tampoco concede derechos sobre:
+
+- SOFTWARE AND TECHNOLOGY CORE SOLUTIONS;
+- SatCore Solutions;
+- logotipos;
+- símbolos;
+- identidad gráfica;
+- nombres comerciales;
+- dominios;
+- marcas registradas;
+- slogans;
+- otros signos distintivos.
+
+El derecho de utilizar el Software no implica el derecho de utilizar la identidad comercial de SatCore Solutions.
+
+---
+
+# 12. Uso del logotipo
+
+La inclusión del logotipo de SatCore Solutions en el Software original no significa que el logotipo se encuentre bajo los mismos términos que el código fuente.
+
+Los elementos gráficos y de identidad de marca permanecen sujetos a los derechos correspondientes.
+
+Las obras derivadas no están obligadas a utilizar el logotipo de SatCore Solutions salvo que otra autorización expresa indique lo contrario.
+
+No obstante, deberán conservar la atribución textual exigida por esta licencia.
+
+---
+
+# 13. No representación de afiliación
+
+Una obra derivada no podrá presentarse de forma que razonablemente pueda interpretarse que:
+
+- SatCore Solutions desarrolló la obra derivada;
+- SatCore Solutions mantiene la obra derivada;
+- SatCore Solutions garantiza la obra derivada;
+- SatCore Solutions patrocina la obra derivada;
+- SatCore Solutions certifica la obra derivada;
+- SatCore Solutions tiene una relación comercial con el distribuidor;
+
+cuando dicha relación no exista realmente.
+
+---
+
+# 14. Dependencias de terceros
+
+El Software puede incorporar componentes desarrollados por terceros.
+
+Las licencias de terceros continúan siendo aplicables a sus respectivos componentes.
+
+Esta licencia:
+
+- no modifica licencias de terceros;
+- no sustituye licencias de terceros;
+- no concede derechos sobre componentes de terceros;
+- no elimina obligaciones provenientes de dichas licencias.
+
+El usuario es responsable de identificar y respetar las licencias correspondientes a las dependencias utilizadas.
+
+---
+
+# 15. Código de terceros
+
+Cuando una parte del proyecto haya sido desarrollada originalmente por terceros y se encuentre bajo una licencia diferente, dicha parte no se considerará propiedad intelectual original de SatCore Solutions por el simple hecho de estar incluida en este repositorio.
+
+La información correspondiente deberá conservarse cuando sea necesaria para cumplir las licencias aplicables.
+
+---
+
+# 16. Seguridad
+
+Esta licencia no autoriza actividades ilegales.
+
+El Software puede utilizarse para investigación, desarrollo, educación, pruebas y otros fines legítimos.
+
+El usuario es responsable de utilizar el Software de conformidad con las leyes aplicables y con las autorizaciones necesarias sobre los sistemas, redes, datos o dispositivos sobre los cuales lo utilice.
+
+---
+
+# 17. Datos y privacidad
+
+Esta licencia no concede automáticamente derechos sobre datos personales, bases de datos, credenciales, información confidencial o cualquier otro contenido que pueda acompañar al Software.
+
+El usuario es responsable del tratamiento legal y seguro de los datos que utilice con el Software.
+
+---
+
+# 18. Sin garantía
+
+EL SOFTWARE SE PROPORCIONA "TAL CUAL" Y "SEGÚN DISPONIBILIDAD", SIN GARANTÍAS DE NINGÚN TIPO, EXPRESAS O IMPLÍCITAS, EN LA MEDIDA MÁXIMA PERMITIDA POR LA LEGISLACIÓN APLICABLE.
+
+SATCORE SOLUTIONS NO GARANTIZA QUE EL SOFTWARE:
+
+- FUNCIONE SIN ERRORES;
+- ESTÉ LIBRE DE VULNERABILIDADES;
+- ESTÉ DISPONIBLE DE FORMA CONTINUA;
+- SEA ADECUADO PARA UN PROPÓSITO PARTICULAR;
+- SEA COMPATIBLE CON TODOS LOS SISTEMAS;
+- PRODUZCA RESULTADOS ESPECÍFICOS.
+
+---
+
+# 19. Limitación de responsabilidad
+
+EN LA MEDIDA MÁXIMA PERMITIDA POR LA LEGISLACIÓN APLICABLE, SATCORE SOLUTIONS NO SERÁ RESPONSABLE POR DAÑOS DIRECTOS, INDIRECTOS, INCIDENTALES, ESPECIALES, CONSECUENTES O PUNITIVOS DERIVADOS DEL USO, MODIFICACIÓN, DISTRIBUCIÓN O IMPOSIBILIDAD DE UTILIZAR EL SOFTWARE.
+
+ESTO INCLUYE, ENTRE OTROS, PÉRDIDA DE DATOS, PÉRDIDA DE BENEFICIOS, INTERRUPCIÓN DE ACTIVIDADES, FALLAS DEL SISTEMA O DAÑOS DERIVADOS DEL USO DEL SOFTWARE.
+
+---
+
+# 20. Responsabilidad del usuario
+
+El usuario es responsable de determinar si el Software resulta adecuado para su caso de uso.
+
+El usuario también es responsable de:
+
+- configurar correctamente el Software;
+- proteger sus credenciales;
+- proteger sus datos;
+- cumplir las leyes aplicables;
+- respetar las licencias de terceros;
+- implementar las medidas de seguridad necesarias;
+- obtener las autorizaciones correspondientes para los sistemas sobre los cuales utilice el Software.
+
+---
+
+# 21. Terminación
+
+Los derechos concedidos mediante esta licencia terminan automáticamente si el usuario incumple materialmente sus condiciones.
+
+La terminación afecta los derechos concedidos por esta licencia, sin perjuicio de otros derechos que puedan existir conforme a la legislación aplicable.
+
+Los derechos podrán restablecerse si el incumplimiento se corrige de manera razonable y se cumplen nuevamente las condiciones de esta licencia.
+
+---
+
+# 22. Derechos reservados
+
+Todos los derechos que no hayan sido expresamente concedidos mediante esta licencia permanecen reservados por **SatCore Solutions**.
+
+Esta licencia no constituye una transferencia de propiedad del Software.
+
+Concede únicamente los derechos expresamente establecidos en ella.
+
+---
+
+# 23. Versiones de esta licencia
+
+Esta licencia se identifica como:
+
+**SatCore Solutions Attribution License — SCSAL 1.0**
+
+Las futuras versiones de esta licencia podrán incorporar modificaciones o condiciones adicionales.
+
+Un proyecto distribuido bajo una versión específica de SCSAL permanecerá sujeto a la versión indicada en su archivo LICENSE, salvo que el titular de los derechos autorice expresamente una migración a una versión posterior.
+
+---
+
+# 24. Legislación aplicable
+
+Esta licencia deberá interpretarse de conformidad con la legislación aplicable a la relación jurídica correspondiente y sin perjuicio de las normas imperativas que resulten aplicables.
+
+Cuando resulte necesario determinar jurisdicción, las partes podrán someterse a la jurisdicción competente conforme a la legislación aplicable.
+
+---
+
+# 25. Aceptación
+
+El uso, copia, modificación o redistribución del Software constituye aceptación de los términos de esta licencia en la medida permitida por la legislación aplicable.
+
+Si una persona o entidad no acepta estos términos, no está autorizada para ejercer los derechos concedidos mediante esta licencia.
+
+---
+
+# 26. Información del proyecto original
+
+**Original developer:**
+
+SatCore Solutions
+
+**Corporate name:**
+
+SOFTWARE AND TECHNOLOGY CORE SOLUTIONS
+
+**Commercial name:**
+
+SATCORE SOLUTIONS
+
+**Tagline:**
+
+Soluciones digitales seguras, accesibles y funcionales para todos.
+
+**GitHub:**
+
+https://github.com/satcoresolutions
+
+**Email:**
+
+satcoresolutions@gmail.com
+
+---
+
+# COPYRIGHT
+
+Copyright © [AÑO] SatCore Solutions.
+
+Todos los derechos reservados, excepto aquellos expresamente concedidos mediante la **SatCore Solutions Attribution License — SCSAL 1.0**.
