@@ -19,8 +19,12 @@ export default function Header() {
                     />
 
                     <div className="hidden leading-tight sm:block">
-                        <p className="text-base font-bold text-text-primary">Comandas digitales</p>
-                        <p className="text-xs text-text-muted">SatCore Solutions</p>
+                        <p className="text-base font-bold text-text-primary">
+                            Control de caja
+                        </p>
+                        <p className="text-xs text-text-muted">
+                            SatCore Solutions
+                        </p>
                     </div>
                 </div>
 
