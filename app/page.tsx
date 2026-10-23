@@ -1,37 +1,22 @@
-import Image from "next/image";
+
 import CajaApp from "@/components/CajaApp";
+import Header from "@/components/Header";
 
 export default function Home() {
   return (
-    <main className="container">
-      <header className="top">
-        <div className="brand">
-          <Image
-            src="/logo.png"
-            alt="SatCore Solutions"
-            width={200}
-            height={65}
-            className="brand-logo"
-            priority
-          />
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 sm:gap-8">
+          <Header />
 
-          <div>
-            <div className="brand-tagline">
-              Soluciones digitales seguras, accesibles y funcionales para todos.
-            </div>
-          </div>
+          <section
+            aria-label="Panel de control de caja"
+            className="min-w-0"
+          >
+            <CajaApp />
+          </section>
         </div>
-
-        <div className="top-content">
-          <h1>Control de caja</h1>
-          <p className="muted">
-            Registra lo que entra y lo que sale, y mira cuánto tienes en caja y
-            en el banco.
-          </p>
-        </div>
-      </header>
-
-      <CajaApp />
+      </div>
     </main>
   );
 }

@@ -16,6 +16,8 @@ import {
 } from "@/lib/stats";
 import { downloadCSV, movementsToCSV } from "@/lib/csv";
 import { DEMO_OPENINGS, demoMovements } from "@/lib/demo";
+import { ui } from "@/lib/ui";
+
 import MovementForm, { type FormData } from "./MovementForm";
 import MovementsTable from "./MovementsTable";
 import Summary from "./Summary";
@@ -33,6 +35,12 @@ const RANGES: { id: RangeId; label: string }[] = [
   { id: "all", label: "Todo" },
   { id: "custom", label: "Rango" },
 ];
+
+const tabItems = [
+  ["mov", "Movimientos"],
+  ["resumen", "Resumen"],
+  ["arqueo", "Arqueo"],
+] as const;
 
 function read<T>(key: string, fallback: T): T {
   try {
@@ -64,6 +72,7 @@ export default function CajaApp() {
 
   useEffect(() => {
     const today = todayISO();
+
     setCustom({ from: addDays(today, -29), to: today });
     setMovs(read<Movement[]>(KEY_MOVS, []));
     setOpenings(read<Openings>(KEY_OPEN, ZERO));
@@ -79,6 +88,7 @@ export default function CajaApp() {
 
   useEffect(() => {
     if (!message) return;
+
     const t = setTimeout(() => setMessage(""), 2500);
     return () => clearTimeout(t);
   }, [message]);
@@ -86,26 +96,57 @@ export default function CajaApp() {
   const list = movs ?? [];
   const op = openings ?? ZERO;
 
-  const range = useMemo(() => resolveRange(rangeId, list, custom), [rangeId, list, custom]);
-  const period = useMemo(() => inRange(list, range), [list, range]);
-  const closing = useMemo(() => closingByDate(list, op), [list, op]);
+  const range = useMemo(
+    () => resolveRange(rangeId, list, custom),
+    [rangeId, list, custom]
+  );
+
+  const period = useMemo(
+    () => inRange(list, range),
+    [list, range]
+  );
+
+  const closing = useMemo(
+    () => closingByDate(list, op),
+    [list, op]
+  );
 
   const today = todayISO();
-  const nowBalances = useMemo(() => accountBalances(list, op, today), [list, op, today]);
+
+  const nowBalances = useMemo(
+    () => accountBalances(list, op, today),
+    [list, op, today]
+  );
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
+
     return period.filter((m) => {
       if (kindFilter !== "all" && m.kind !== kindFilter) return false;
       if (!q) return true;
-      return [m.concept, m.category, m.note, m.account].some((v) => v.toLowerCase().includes(q));
+
+      return [m.concept, m.category, m.note, m.account].some((v) =>
+        v.toLowerCase().includes(q)
+      );
     });
   }, [period, kindFilter, query]);
 
-  if (movs === null || openings === null) return <p className="muted">Cargando…</p>;
+  if (movs === null || openings === null) {
+    return (
+      <p className={ui.muted} role="status">
+        Cargando…
+      </p>
+    );
+  }
 
   const widenIfNeeded = (date: string) => {
-    if (rangeId !== "all" && rangeId !== "custom" && (date < range.from || date > range.to)) setRangeId("all");
+    if (
+      rangeId !== "all" &&
+      rangeId !== "custom" &&
+      (date < range.from || date > range.to)
+    ) {
+      setRangeId("all");
+    }
   };
 
   const saveMovement = (data: FormData, id?: string) => {
@@ -114,31 +155,43 @@ export default function CajaApp() {
         (l ?? []).map((m) =>
           m.id === id
             ? {
-                ...m,
-                kind: data.kind === "out" ? "out" : "in",
-                date: data.date,
-                concept: data.concept,
-                category: data.category,
-                amount: data.amount,
-                account: data.account,
-                note: data.note,
-              }
+              ...m,
+              kind: data.kind === "out" ? "out" : "in",
+              date: data.date,
+              concept: data.concept,
+              category: data.category,
+              amount: data.amount,
+              account: data.account,
+              note: data.note,
+            }
             : m
         )
       );
+
       setEditing(null);
       setMessage("Movimiento actualizado.");
     } else if (data.kind === "transfer") {
       const pairId = uid();
       const from: Account = data.account;
       const to: Account = from === "Efectivo" ? "Banco" : "Efectivo";
-      const base = { date: data.date, concept: data.concept, category: TRANSFER, amount: data.amount, note: data.note, pairId };
+
+      const base = {
+        date: data.date,
+        concept: data.concept,
+        category: TRANSFER,
+        amount: data.amount,
+        note: data.note,
+        pairId,
+      };
+
       const now = Date.now();
+
       setMovs((l) => [
         { ...base, id: uid(), createdAt: now + 1, kind: "in", account: to },
         { ...base, id: uid(), createdAt: now, kind: "out", account: from },
         ...(l ?? []),
       ]);
+
       setMessage(`Traslado de ${from} a ${to} registrado.`);
     } else {
       setMovs((l) => [
@@ -155,15 +208,28 @@ export default function CajaApp() {
         },
         ...(l ?? []),
       ]);
-      setMessage(data.kind === "in" ? "Entrada registrada." : "Salida registrada.");
+
+      setMessage(
+        data.kind === "in" ? "Entrada registrada." : "Salida registrada."
+      );
     }
+
     widenIfNeeded(data.date);
   };
 
   const removeMovement = (m: Movement) => {
-    const what = m.pairId ? "este traslado (se borran sus dos movimientos)" : `"${m.concept}" por ${formatCOP(m.amount)}`;
+    const what = m.pairId
+      ? "este traslado (se borran sus dos movimientos)"
+      : `"${m.concept}" por ${formatCOP(m.amount)}`;
+
     if (!window.confirm(`¿Borrar ${what}?`)) return;
-    setMovs((l) => (l ?? []).filter((x) => (m.pairId ? x.pairId !== m.pairId : x.id !== m.id)));
+
+    setMovs((l) =>
+      (l ?? []).filter((x) =>
+        m.pairId ? x.pairId !== m.pairId : x.id !== m.id
+      )
+    );
+
     if (editing?.id === m.id) setEditing(null);
   };
 
@@ -188,10 +254,15 @@ export default function CajaApp() {
       },
       ...(l ?? []),
     ]);
+
     setMessage("Ajuste registrado. La caja ya cuadra.");
   };
 
-  const exportCSV = () => downloadCSV(`caja-${range.from}_a_${range.to}.csv`, movementsToCSV(visible));
+  const exportCSV = () =>
+    downloadCSV(
+      `caja-${range.from}_a_${range.to}.csv`,
+      movementsToCSV(visible)
+    );
 
   const loadDemo = () => {
     setMovs(demoMovements());
@@ -199,7 +270,14 @@ export default function CajaApp() {
   };
 
   const clearAll = () => {
-    if (!window.confirm("¿Borrar TODOS los movimientos y saldos iniciales? Esta acción no se puede deshacer.")) return;
+    if (
+      !window.confirm(
+        "¿Borrar TODOS los movimientos y saldos iniciales? Esta acción no se puede deshacer."
+      )
+    ) {
+      return;
+    }
+
     setMovs([]);
     setOpenings(ZERO);
     setEditing(null);
@@ -209,86 +287,153 @@ export default function CajaApp() {
 
   return (
     <>
-      <section className="balances">
-        <div className="kpi kpi-main">
-          <span>Saldo total hoy</span>
-          <strong>{formatCOP(total)}</strong>
-          <small>Efectivo + Banco</small>
+      {/* Saldos actuales */}
+      <section className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-1 rounded-xl border border-primary/30 bg-primary/10 p-5">
+          <span className="text-sm text-text-muted">Saldo total hoy</span>
+
+          <strong className="text-2xl font-bold tabular-nums text-foreground">
+            {formatCOP(total)}
+          </strong>
+
+          <small className="text-xs text-text-muted">
+            Efectivo + Banco
+          </small>
         </div>
+
         {ACCOUNTS.map((a) => (
-          <div className="kpi" key={a}>
-            <span>{a}</span>
-            <strong className={nowBalances[a] < 0 ? "money-out" : ""}>{formatCOP(nowBalances[a])}</strong>
-            <small>{nowBalances[a] < 0 ? "Saldo negativo: revisa los registros" : "saldo actual"}</small>
+          <div
+            className="grid gap-1 rounded-xl border border-border bg-surface-secondary p-5"
+            key={a}
+          >
+            <span className="text-sm text-text-muted">{a}</span>
+
+            <strong
+              className={`text-2xl font-bold tabular-nums ${nowBalances[a] < 0 ? "text-danger" : "text-foreground"
+                }`}
+            >
+              {formatCOP(nowBalances[a])}
+            </strong>
+
+            <small
+              className={`text-xs ${nowBalances[a] < 0 ? "text-danger" : "text-text-muted"
+                }`}
+            >
+              {nowBalances[a] < 0
+                ? "Saldo negativo: revisa los registros"
+                : "saldo actual"}
+            </small>
           </div>
         ))}
       </section>
 
-      <details className="openings">
-        <summary>Saldos iniciales</summary>
-        <div className="grid grid-2">
+      {/* Saldos iniciales */}
+      <details className={`${ui.panel} mb-6`}>
+        <summary className="cursor-pointer font-semibold text-foreground marker:text-text-primary">
+          Saldos iniciales
+        </summary>
+
+        <div className={`${ui.grid2} mt-4`}>
           {ACCOUNTS.map((a) => (
-            <label key={a}>
+            <label className={ui.label} key={a}>
               {a} al empezar a usar la app ($)
+
               <input
                 type="number"
-                value={openings[a]}
-                onChange={(e) => setOpenings((o) => ({ ...(o ?? ZERO), [a]: Number(e.target.value) || 0 }))}
+                value={op[a]}
+                onChange={(e) =>
+                  setOpenings((o) => ({
+                    ...(o ?? ZERO),
+                    [a]: Number(e.target.value) || 0,
+                  }))
+                }
+                className={ui.input}
               />
             </label>
           ))}
         </div>
-        <p className="hint">Es lo que tenías en cada cuenta antes del primer movimiento registrado.</p>
+
+        <p className={ui.hint}>
+          Es lo que tenías en cada cuenta antes del primer movimiento
+          registrado.
+        </p>
       </details>
 
-      {tab !== "arqueo" ? (
-        <div className="toolbar">
-          <div className="pills" role="group" aria-label="Periodo">
+      {/* Filtros de periodo */}
+      {tab !== "arqueo" && (
+        <section className="mb-4 grid gap-3">
+          <div
+            className="flex flex-wrap gap-2"
+            role="group"
+            aria-label="Periodo"
+          >
             {RANGES.map((r) => (
               <button
                 key={r.id}
                 type="button"
-                className={rangeId === r.id ? "pill active" : "pill"}
+                aria-pressed={rangeId === r.id}
+                className={
+                  rangeId === r.id
+                    ? ui.segOn
+                    : `${ui.btn} border-transparent`
+                }
                 onClick={() => setRangeId(r.id)}
               >
                 {r.label}
               </button>
             ))}
           </div>
-          {rangeId === "custom" ? (
-            <div className="custom-range">
-              <input
-                type="date"
-                aria-label="Desde"
-                value={custom.from}
-                onChange={(e) => setCustom((c) => ({ ...c, from: e.target.value }))}
-              />
-              <span className="muted">a</span>
-              <input
-                type="date"
-                aria-label="Hasta"
-                value={custom.to}
-                onChange={(e) => setCustom((c) => ({ ...c, to: e.target.value }))}
-              />
-            </div>
-          ) : null}
-        </div>
-      ) : null}
 
-      <div className="tabs" role="tablist">
-        {(
-          [
-            ["mov", "Movimientos"],
-            ["resumen", "Resumen"],
-            ["arqueo", "Arqueo"],
-          ] as const
-        ).map(([id, label]) => (
+          {rangeId === "custom" && (
+            <div className="flex flex-wrap items-center gap-2">
+              <label className={ui.label}>
+                Desde
+                <input
+                  type="date"
+                  aria-label="Desde"
+                  value={custom.from}
+                  onChange={(e) =>
+                    setCustom((c) => ({ ...c, from: e.target.value }))
+                  }
+                  className={ui.input}
+                />
+              </label>
+
+              <span className="pt-5 text-text-muted">a</span>
+
+              <label className={ui.label}>
+                Hasta
+                <input
+                  type="date"
+                  aria-label="Hasta"
+                  value={custom.to}
+                  onChange={(e) =>
+                    setCustom((c) => ({ ...c, to: e.target.value }))
+                  }
+                  className={ui.input}
+                />
+              </label>
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* Navegación */}
+      <div
+        className="mb-5 grid grid-cols-3 border-b border-border"
+        role="tablist"
+        aria-label="Secciones de caja"
+      >
+        {tabItems.map(([id, label]) => (
           <button
             key={id}
             type="button"
             role="tab"
             aria-selected={tab === id}
-            className={tab === id ? "active" : ""}
+            className={`border-b-2 px-3 py-3 text-sm font-semibold transition-colors ${tab === id
+                ? "border-primary text-text-primary"
+                : "border-transparent text-text-muted hover:text-foreground"
+              }`}
             onClick={() => setTab(id)}
           >
             {label}
@@ -296,9 +441,10 @@ export default function CajaApp() {
         ))}
       </div>
 
+      {/* Movimientos */}
       {tab === "mov" && (
-        <div className="layout-form">
-          <aside className="side">
+        <div className="grid items-start gap-5 lg:grid-cols-[minmax(280px,0.8fr)_minmax(0,1.7fr)]">
+          <aside className="grid min-w-0 gap-3 lg:sticky lg:top-4">
             <MovementForm
               key={editing?.id ?? "nuevo"}
               editing={editing}
@@ -306,72 +452,115 @@ export default function CajaApp() {
               onSave={saveMovement}
               onCancel={() => setEditing(null)}
             />
-            {message ? <p className="toast">{message}</p> : null}
+
+            {message && (
+              <p className={ui.toast} role="status" aria-live="polite">
+                {message}
+              </p>
+            )}
           </aside>
 
-          <section className="panel">
-            <div className="panel-head wrap">
+          <section className={`${ui.panel} min-w-0`}>
+            <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
               <div>
-                <h2>Movimientos</h2>
-                <p className="hint" style={{ margin: 0 }}>
-                  {visible.length} {visible.length === 1 ? "movimiento" : "movimientos"} en el periodo
+                <h2 className={ui.title}>Movimientos</h2>
+
+                <p className={ui.hint}>
+                  {visible.length}{" "}
+                  {visible.length === 1 ? "movimiento" : "movimientos"} en el
+                  periodo
                 </p>
               </div>
-              <div className="head-actions">
+
+              <div className="grid w-full gap-2 sm:grid-cols-[auto_minmax(140px,1fr)_auto]">
                 <select
-                  className="kind-filter"
+                  className={`${ui.input} min-w-0`}
                   value={kindFilter}
-                  onChange={(e) => setKindFilter(e.target.value as "all" | Kind)}
-                  aria-label="Tipo"
+                  onChange={(e) =>
+                    setKindFilter(e.target.value as "all" | Kind)
+                  }
+                  aria-label="Tipo de movimiento"
                 >
                   <option value="all">Todos</option>
                   <option value="in">Solo entradas</option>
                   <option value="out">Solo salidas</option>
                 </select>
+
                 <input
                   type="search"
-                  className="search"
+                  className={`${ui.input} min-w-0`}
                   placeholder="Buscar concepto…"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
+                  aria-label="Buscar movimientos"
                 />
-                <button type="button" className="btn" onClick={exportCSV} disabled={visible.length === 0}>
+
+                <button
+                  type="button"
+                  className={`${ui.btn} w-full sm:w-auto`}
+                  onClick={exportCSV}
+                  disabled={visible.length === 0}
+                >
                   Exportar CSV
                 </button>
               </div>
             </div>
 
             {list.length === 0 ? (
-              <div className="empty">
-                <p className="muted">
-                  Aún no has registrado movimientos. Usa el formulario, o carga datos de ejemplo para explorar la app.
+              <div className="grid justify-items-center gap-3 rounded-lg border border-dashed border-border px-4 py-10 text-center">
+                <p className={ui.muted}>
+                  Aún no has registrado movimientos. Usa el formulario o carga
+                  datos de ejemplo para explorar la app.
                 </p>
-                <button type="button" className="btn" onClick={loadDemo}>
+
+                <button
+                  type="button"
+                  className={ui.btnPrimary}
+                  onClick={loadDemo}
+                >
                   Cargar datos de ejemplo
                 </button>
               </div>
             ) : (
-              <MovementsTable movements={visible} closing={closing} onEdit={startEdit} onDelete={removeMovement} />
+              <MovementsTable
+                movements={visible}
+                closing={closing}
+                onEdit={startEdit}
+                onDelete={removeMovement}
+              />
             )}
 
-            {list.length > 0 ? (
-              <p className="hint foot">
+            {list.length > 0 && (
+              <p className={`${ui.hint} mt-4 border-t border-border pt-3`}>
                 Los datos se guardan solo en este navegador.{" "}
-                <button type="button" className="link danger" onClick={clearAll}>
+                <button
+                  type="button"
+                  className={ui.linkDanger}
+                  onClick={clearAll}
+                >
                   Borrar todo
                 </button>
               </p>
-            ) : null}
+            )}
           </section>
         </div>
       )}
 
-      {tab === "resumen" && <Summary all={list} period={period} range={range} openings={op} />}
+      {/* Resumen */}
+      {tab === "resumen" && (
+        <Summary all={list} period={period} range={range} openings={op} />
+      )}
 
+      {/* Arqueo */}
       {tab === "arqueo" && (
-        <div className="arqueo-wrap">
+        <div className="grid gap-3">
           <Arqueo expectedCash={nowBalances.Efectivo} onAdjust={adjust} />
-          {message ? <p className="toast">{message}</p> : null}
+
+          {message && (
+            <p className={ui.toast} role="status" aria-live="polite">
+              {message}
+            </p>
+          )}
         </div>
       )}
     </>
